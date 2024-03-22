@@ -51,7 +51,9 @@ def read_powerball_data(json_file):
     try:
         with open(json_file, 'r') as file:
             powerball_data = json.load(file)
-        return powerball_data
+            # Convert list of dictionaries to DataFrame
+            powerball_data = pd.DataFrame(powerball_data)
+            return powerball_data
     except Exception as e:
         print(f"Failed to read Powerball data from {json_file}: {e}")
         return None

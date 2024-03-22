@@ -1,4 +1,5 @@
 import joblib
+import numpy as np
 
 def load_model(model_file):
     """
@@ -32,6 +33,8 @@ def predict_powerball_numbers(model_file, features):
     model = load_model(model_file)
     if model is None:
         return None
+
+    print(f"Number of features: {np.array(features).shape}")
 
     # Generate predictions
     predictions = model.predict(features)
