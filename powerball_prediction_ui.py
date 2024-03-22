@@ -80,22 +80,23 @@
 # root.mainloop()
 
 
-from tkinter import *
-from tkinter import ttk
 import joblib
 from sklearn.ensemble import RandomForestRegressor
+from tkinter import *
+from tkinter import ttk  # Assuming you're using ttk for widgets
 
 def train_model(X_train, y_train):
     """
     Train a predictive model using RandomForestRegressor.
 
     Args:
-    - X_train: Training features.
-    - y_train: Training target.
+        X_train (2D array): Training features.
+        y_train (1D array): Training target.
 
     Returns:
-    - trained_model: Trained predictive model.
+        trained_model: Trained predictive model.
     """
+
     # Initialize and train the model
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
@@ -107,9 +108,10 @@ def save_model(model, model_file):
     Save the trained model to a file.
 
     Args:
-    - model: Trained predictive model.
-    - model_file: File path for saving the model.
+        model: Trained predictive model.
+        model_file (str): File path for saving the model.
     """
+
     try:
         joblib.dump(model, model_file)
         print(f"Model saved as {model_file}")
@@ -117,22 +119,34 @@ def save_model(model, model_file):
         print(f"Failed to save model to {model_file}: {e}")
 
 def train_and_save_model():
-    # Fetch latest data and preprocess it (not implemented in this example)
-    # Placeholder for training features and target
-    X_train = []  # Add actual training features
-    y_train = []  # Add actual training target
+    # Replace these placeholders with your actual data loading and preprocessing logic
+    # Ensure X_train is a 2D array and y_train is a 1D array
+    X_train = ...  # Load or prepare your training features (2D array)
+    y_train = ...  # Load or prepare your training target (1D array)
+
+    # Check for empty arrays and reshape if necessary
+    if len(X_train) == 0 or len(y_train) == 0:
+        print("Error: Training data is empty. Please provide data for training.")
+        return
+
+    if X_train.ndim == 1:
+        # Reshape if it's a single feature
+        X_train = X_train.reshape(-1, 1)
+    elif X_train.ndim > 2:
+        print("Error: Training features should be a 2D array. Please check your data loading process.")
+        return
 
     # Train the model
     model = train_model(X_train, y_train)
 
     # Save the trained model to a file
-    model_file = "powerball_model.pkl"  # File path for saving the model
+    model_file = "powerball_model.pkl"
     save_model(model, model_file)
 
     # Provide feedback to the user
     train_feedback_label.config(text="Model trained and saved successfully!")
 
-# Create main window
+# Create main window (assuming your GUI code remains similar)
 root = Tk()
 root.title("Powerball Prediction")
 
