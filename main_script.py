@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # Step 7: Predict Powerball numbers
     model_file = "powerball_model.pkl"  # File path of the trained Powerball model
     user_input = {
-    'features': [2024, 3, 20, 2]  # Example features: [Year, Month, Day, DayOfWeek]
+    'features': [2024, 3, 23, 3]  # Example features: [Year, Month, Day, DayOfWeek]
     }
 
     features = np.array(user_input['features']).reshape(1, -1)

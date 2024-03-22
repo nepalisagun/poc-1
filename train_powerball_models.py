@@ -1,6 +1,7 @@
-import pandas as pd
+import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import cross_val_score
 import joblib
 
 def train_model(X_train, y_train):
@@ -18,6 +19,11 @@ def train_model(X_train, y_train):
     try:
         # Initialize and train the model
         model = RandomForestRegressor(n_estimators=100, random_state=42)
+        #Perform cross-validation
+        cv_scores = cross_val_score(model, X_train, y_train, cv=5)
+        print(f"Cross-validation scores: {cv_scores}")
+        print(f"Mean cross-validation score: {np.mean(cv_scores)}")
+        #Train the model
         model.fit(X_train, y_train)
         print("Model trained successfully.")
     except Exception as e:

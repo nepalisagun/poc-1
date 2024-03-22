@@ -46,10 +46,7 @@ def plot_predicted_numbers(predictions):
     plt.show()
 
 if __name__ == "__main__":
-    # Assume true_powerball_numbers and predicted_powerball_numbers are available
-    # true_powerball_numbers = ...  # True Powerball numbers from the dataset
-    # predicted_powerball_numbers = ...  # Predicted Powerball numbers from the model
-
+    
     # Step 8: Evaluate model performance
     evaluation_metrics = evaluate_model_performance(true_powerball_numbers, predicted_powerball_numbers)
     print("Model Evaluation Metrics:")
