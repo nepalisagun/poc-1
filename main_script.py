@@ -3,8 +3,27 @@ from preprocess_powerball_data import preprocess_powerball
 from preprocess_megamillion_data import preprocess_megamillion
 from predict_powerball_numbers import load_model, predict_powerball_numbers
 from train_powerball_models import train_model, evaluate_model
+from evaluate_powerball_models import evaluate_model_performance, plot_predicted_numbers
 import joblib
 import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.metrics import mean_squared_error
+def evaluate_model_performance(y_true, y_pred):
+    """
+    Evaluate the performance of a predictive model using mean squared error (MSE).
+
+    Args:
+    - y_true: True target values.
+    - y_pred: Predicted target values.
+
+    Returns:
+    - mse: Mean squared error.
+    """
+    mse = mean_squared_error(y_true, y_pred)
+
+    return mse
+
 
 if __name__ == "__main__":
     # Step 1: Read data from local files
@@ -36,6 +55,11 @@ if __name__ == "__main__":
         mse = evaluate_model(model, X_test, y_test)
         print(f"Model Mean Squared Error: {mse}")
 
+        # Evaluate model performance using mean squared error
+        y_pred = model.predict(X_test)
+        mse = evaluate_model_performance(y_test, y_pred)
+        print(f"Mean Squared Error: {mse}")
+
         # Step 5: Save trained models
         model_file = "powerball_model.pkl"
         joblib.dump(model, model_file)
@@ -55,3 +79,6 @@ if __name__ == "__main__":
     # Display the predicted Powerball numbers
     print("Predicted Powerball numbers:")
     print(predictions)
+
+    # Plot the predicted Powerball numbers
+    plot_predicted_numbers(predictions)
